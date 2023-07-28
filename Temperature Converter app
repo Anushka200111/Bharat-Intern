@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class TemperatureConverterApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Temperature Converter App!");
+
+        while (true) {
+            System.out.println("Enter the temperature in Celsius:");
+            double celsius = scanner.nextDouble();
+
+            double fahrenheit = convertCelsiusToFahrenheit(celsius);
+            System.out.println("Temperature in Fahrenheit: " + fahrenheit);
+
+            System.out.println("Do you want to convert another temperature? (y/n)");
+            String choice = scanner.next();
+
+            if (!choice.equalsIgnoreCase("y")) {
+                System.out.println("Thank you for using the Temperature Converter App!");
+                break;
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static double convertCelsiusToFahrenheit(double celsius) {
+        return (celsius * 9 / 5) + 32;
+    }
+}
