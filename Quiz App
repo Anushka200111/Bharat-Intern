@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class QuizApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Quiz App!");
+
+        ArrayList<Question> questions = new ArrayList<>();
+        initializeQuestions(questions); // Add your questions here
+
+        int score = 0;
+        int totalQuestions = questions.size();
+
+        System.out.println("Let's start the quiz!");
+        for (int i = 0; i < totalQuestions; i++) {
+            Question currentQuestion = questions.get(i);
+            System.out.println("\nQuestion " + (i + 1) + ": " + currentQuestion.getQuestion());
+            System.out.println("Options:");
+            for (int j = 0; j < currentQuestion.getOptions().size(); j++) {
+                System.out.println((j + 1) + ". " + currentQuestion.getOptions().get(j));
+            }
+
+            System.out.print("Enter your choice (1-" + currentQuestion.getOptions().size() + "): ");
+            int userChoice = scanner.nextInt();
+
+            if (userChoice >= 1 && userChoice <= currentQuestion.getOptions().size()) {
+                if (currentQuestion.isCorrect(userChoice - 1)) {
+                    System.out.println("Correct!");
+                    score++;
+                } else {
+                    System.out.println("Incorrect. The correct answer was: " + currentQuestion.getCorrectAnswer());
+                }
+            } else {
+                System.out.println("Invalid choice. Skipping this question.");
+            }
+        }
+
+        System.out.println("\nQuiz completed!");
+        System.out.println("Your score: " + score + "/" + totalQuestions);
+
+        scanner.close();
+    }
+
+    private static void initializeQuestions(ArrayList<Question> questions) {
+        // Add your questions and their answers here
+        // Example:
+        // Question 1
+        // ArrayList<String> options1 = new ArrayList<>();
+        // options1.add("Option 1");
+        // options1.add("Option 2");
+        // options1.add("Option 3");
+        // options1.add("Option 4");
+        // questions.add(new Question("Question 1 text?", options1, 2)); // 2 is the index of the correct answer (Option 2)
+    }
+}
+
+class Question {
+    private String question;
+    private ArrayList<String> options;
+    private int correctAnswer;
+
+    public Question(String question, ArrayList<String> options, int correctAnswer) {
+        this.question = question;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public ArrayList<String> getOptions() {
+        return options;
+    }
+
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public boolean isCorrect(int userChoice) {
+        return userChoice == correctAnswer;
+    }
+}
